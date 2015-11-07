@@ -88,6 +88,13 @@ function exchangeAuthorizationCode(authorizationCode, callback) {
   }, function(err, httpRes, body) {
     body = JSON.parse(body);
 
+    if (body.id_token) {
+      body.id_token = '{hidden}';
+    }
+    if (body.refresh_token) {
+      body.refresh_token = '{hidden}';
+    }
+
     callback(err, body);
   });
 }
