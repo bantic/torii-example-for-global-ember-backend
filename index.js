@@ -27,15 +27,11 @@ app.post('/sign-in-with-authorization-code', function(request, response) {
   //   -- else, "create" user entry, respond with mock user session token
 
   var authorizationCode = request.body.authorizationCode;
-  console.log('authorizationCode', authorizationCode);
   exchangeAuthorizationCode(authorizationCode, function(err, accessTokenData) {
     var accessToken = accessTokenData.access_token;
-    console.log('accessTokenData', accessTokenData);
 
     getEmailFromAccessToken(accessToken, function(err, email) {
-      console.log('got email', email);
       var user = userDb.findOrCreateByEmail(email);
-      console.log('got user:', user);
 
       response.send(user);
     });
@@ -49,14 +45,14 @@ app.get('/users/:id', function(request, response) {
   if (user) {
     response.send(user);
   } else {
-    // 401
+    response.status(404).send('not found');
   }
 });
 
 app.delete('/users/:id', function(request, response) {
   userDb.removeId(request.params.id);
 
-  response.send({});
+  response.status(204).send({});
 });
 
 app.post('/exchange-authorization-code', function(request, response) {
