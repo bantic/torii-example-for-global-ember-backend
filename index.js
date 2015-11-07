@@ -19,12 +19,15 @@ app.get('/', function(request, response) {
 
 var userDb = require('./src/user-db');
 
+// signs the user in with an authorization code
 app.post('/sign-in-with-authorization-code', function(request, response) {
-  // exchange authorization code for access token
-  // read email from access token
-  // lookup user with email
-  //   -- if user exists, respond with mock user session token
-  //   -- else, "create" user entry, respond with mock user session token
+  /*
+   * 1. exchange code for access token
+   * 2. Look up email from access token
+   * 3. find or create user by that email
+   * 4. sign user in
+   * 5. return user data
+   */
 
   var authorizationCode = request.body.authorizationCode;
   exchangeAuthorizationCode(authorizationCode, function(err, accessTokenData) {
@@ -38,6 +41,7 @@ app.post('/sign-in-with-authorization-code', function(request, response) {
   });
 });
 
+// this checks if the user is signed-in
 app.get('/users/:id', function(request, response) {
   var id = request.params.id;
 
@@ -49,6 +53,7 @@ app.get('/users/:id', function(request, response) {
   }
 });
 
+// this signs out the user
 app.delete('/users/:id', function(request, response) {
   userDb.removeId(request.params.id);
 
