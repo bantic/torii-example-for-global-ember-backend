@@ -1,0 +1,19 @@
+{
+  "name": "torii-example-for-global-ember-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cory Forsyth <cory.forsyth@gmail.com> (http://coryforsyth.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "cors": "^2.7.1",
+    "dotenv": "^1.2.0",
+    "express": "^4.13.3",
+    "request": "^2.65.0"
+  }
+}
