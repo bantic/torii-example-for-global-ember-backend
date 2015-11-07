@@ -35,8 +35,17 @@ app.post('/exchange-authorization-code', function(request, response) {
     }
   }, function(err, httpRes, body) {
     console.log('err', err);
-    console.log('httpRes', httpRes);
-    console.log('body', body);
+   
+    body = JSON.parse(body);
+
+    // Normally this would not be obfuscated
+    if (body.id_token) {
+      body.id_token = '{hidden}';
+    }
+    if (body.refresh_token) {
+      body.refresh_token = '{hidden}';
+    }
+
     response.send(body);
   });
 });
